@@ -20,37 +20,23 @@ body {
   color: #2f2a26;
   display: inline;
 }
-
 .text2 {
   color: #afaba2;
   display: inline;
 }
 
-.text2:hover {
+.text3 {
+  color: #afaba2;
+  display: inline;
+}
+.text3:hover {
   color: #806f5d;
   display: inline;
 }
 
-.logInButton {
-  background-color: #afaba2;
-  color:#272727;
-  border-radius:5px;
-  border-color: #afaba2;
-  width: 50vh;
-  margin-top:5px;
-  margin-bottom:5px;
-  border-radius: 5px;
-  padding:10px;
-  height: 7vh;
-}
-.logInButton:hover {
-  background-color: #806f5d;
-  width: 50vh;
-  margin-top:5px;
-  margin-bottom:5px;
-  border-radius: 5px;
-  padding:10px;
-  height: 7vh;
+/* mouse over link */
+a:hover {
+  text-decoration:none;
 }
 
 .formcontrol {
@@ -63,4 +49,26 @@ body {
   margin-bottom:5px;
   border-radius: 5px;
   padding:10px;
+}
+
+.signUpButton:hover {
+  background-color: #806f5d;
+  width: 50vh;
+  margin-top:5px;
+  margin-bottom:5px;
+  border-radius: 5px;
+  padding:10px;
+  height: 7vh;
+}
+.signUpButton {
+  background-color: #afaba2;
+  color:#272727;
+  border-radius:5px;
+  border-color: #afaba2;
+  width: 50vh;
+  margin-top:5px;
+  margin-bottom:5px;
+  border-radius: 5px;
+  padding:10px;
+  height: 7vh;
 }

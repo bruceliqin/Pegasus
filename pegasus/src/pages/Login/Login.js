@@ -9,13 +9,12 @@ export default class Login extends Component {
         <form
           className="mt-5 py-5 px-5"
           autoComplete="off"
-          onSubmit={this.handleSubmit}
         >
-          <div className={styles.logInBox}>
+        <div className={styles.logInBox}>
           <h1 className={styles.text1}>
             Login to 
             <Link className="title ml-2" to="/">
-              <h1 className={styles.text2}>Ensemble</h1>
+              <h1 className={styles.text2}>Pegasus</h1>
             </Link>
           </h1>
           </div>
@@ -41,7 +40,13 @@ export default class Login extends Component {
             />
           </div>
           <div className="form-group">
-            <div className={styles.logInBox}><button className={styles.logInButton} type="submit">Login</button></div>
+            <div className={styles.logInBox}>
+                <Link to="/dashboard">
+                <button className={styles.logInButton} type="submit">
+                    Log In
+                </button>
+                </Link>
+            </div>
           </div>
         </form>
     );
