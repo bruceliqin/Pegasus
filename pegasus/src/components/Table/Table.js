@@ -11,6 +11,7 @@ import Paper from '@mui/material/Paper';
 import axios from 'axios';
 import { getModalUtilityClass } from '@mui/material';
 import styles from './Table.module.css';
+import { Link } from 'react-router-dom';
 
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -69,6 +70,23 @@ export default class CustomizedTables extends React.Component {
       });
     }
 
+    async handleSchedule(mailID, time) {
+      console.log("refresh");
+      const api = 'https://q9hhz3z4p7.execute-api.us-east-1.amazonaws.com/dev/schedule';
+      const data = {'MailID': mailID, 'Time': time};
+      console.log(data)
+
+      axios
+      .post(api, data)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    }
+
+
   componentDidMount() {
     const api = 'https://q9hhz3z4p7.execute-api.us-east-1.amazonaws.com/dev/getmails';
 
@@ -105,6 +123,7 @@ export default class CustomizedTables extends React.Component {
               <StyledTableCell align="center">Address</StyledTableCell>
               <StyledTableCell align="center">Status&nbsp;</StyledTableCell>
               <StyledTableCell align="center">Time&nbsp;</StyledTableCell>
+              <StyledTableCell align="center">To Schedule&nbsp;</StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -116,6 +135,17 @@ export default class CustomizedTables extends React.Component {
                 <StyledTableCell align="center">{row.Status}</StyledTableCell>
                 <StyledTableCell align="center">{row.Address}</StyledTableCell>
                 <StyledTableCell align="center">{row.Time}</StyledTableCell>
+                {(() => {
+                  if (row.Status === "Logged") {
+                    return <StyledTableCell align="center">
+                        <Link to={{ pathname: `/schedule`, state: { mailID: row.ID } }}>
+                        <p className={styles.text3}> Schedule </p>
+                        </Link>
+                      </StyledTableCell>
+                  } else {
+                    return <StyledTableCell align="center">{"-"}</StyledTableCell>
+                  }
+                })()}
               </StyledTableRow>
             ))}
           </TableBody>
