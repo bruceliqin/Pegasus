@@ -44,16 +44,16 @@ export default class CustomizedTables extends React.Component {
   constructor() {
     super();
     this.state = {
-      mail : []
+      mail : [],
     };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-
   async handleSubmit(event) {
+    console.log(this.state.scheduled)
+    this.setState({scheduled : false})
+    //this.setState({scheduled : false})
     const refresh = [];
-    event.preventDefault();
-    console.log("refresh");
     const api = 'https://q9hhz3z4p7.execute-api.us-east-1.amazonaws.com/dev/getmails';
 
     axios
@@ -71,7 +71,7 @@ export default class CustomizedTables extends React.Component {
     }
 
     async handleSchedule(mailID, time) {
-      console.log("refresh");
+      this.setState({scheduled : true});
       const api = 'https://q9hhz3z4p7.execute-api.us-east-1.amazonaws.com/dev/schedule';
       const data = {'MailID': mailID, 'Time': time};
       console.log(data)
@@ -88,6 +88,7 @@ export default class CustomizedTables extends React.Component {
 
 
   componentDidMount() {
+    this.setState({scheduled : false})
     const api = 'https://q9hhz3z4p7.execute-api.us-east-1.amazonaws.com/dev/getmails';
 
     axios
@@ -138,10 +139,8 @@ export default class CustomizedTables extends React.Component {
                 {(() => {
                   if (row.Status === "Logged") {
                     return <StyledTableCell align="center">
-                        <Link to={{ pathname: `/schedule`, state: { mailID: row.ID } }}>
-                        <p className={styles.text3}> Schedule </p>
-                        </Link>
-                      </StyledTableCell>
+                            <Link to={`/schedule${row.ID}`}><p className={styles.text3}>Schedule</p></Link>
+                          </StyledTableCell>
                   } else {
                     return <StyledTableCell align="center">{"-"}</StyledTableCell>
                   }

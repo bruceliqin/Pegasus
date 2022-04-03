@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Route, HashRouter as Router, Switch, Redirect} from "react-router-dom";
+import { Route, BrowserRouter as Router, Switch, Redirect} from "react-router-dom";
 import Login from "./pages/Login/Login";
 import Home from "./pages/Home/Home";
 import Signup from "./pages/Signup/Signup";
@@ -14,11 +14,11 @@ class App extends React.Component {
         <main>
         <Router>
             <Switch>
-                <Route exact path={`/`} component={Home}/>
-                <Route exact path={`/login`} render={() => <Login/>} />
-                <Route exact path={`/signup`} render={() => <Signup/>} />
-                <Route exact path={`/dashboard`} render={() => <Dashboard/>} />
-                <Route exact path={`/schedule/:MailID?`} render={() => <Schedule/>} />
+                <Route exact path="/" component={Home}/>
+                <Route exact path="/login" render={() => <Login/>} />
+                <Route exact path="/signup" render={() => <Signup/>} />
+                <Route exact path="/dashboard" render={() => <Dashboard/>} />
+                <Route exact path="/schedule/:id" render={() => <Schedule/>} />
             </Switch>
         </Router>
       </main>
