@@ -17,7 +17,9 @@ export default function Header() {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Pegasus
           </Typography>
-          <Link className="btn px-5" to="/">Logout</Link>
+          <Link className="btn" to="/UPS">UPS</Link>
+          <Link className="btn" to="/dashboard">Mail</Link>
+          <Link className="btn" to="/">Logout</Link>
         </Toolbar>
       </AppBar>
     </Box>

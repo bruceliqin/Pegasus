@@ -139,7 +139,7 @@ export default class CustomizedTables extends React.Component {
                 {(() => {
                   if (row.Status === "Logged") {
                     return <StyledTableCell align="center">
-                            <Link to={`/schedule${row.ID}`}><p className={styles.text3}>Schedule</p></Link>
+                            <Link to={{pathname:"/schedule", state: {mailID: row.ID }}}><p className={styles.text3}>Schedule</p></Link>
                           </StyledTableCell>
                   } else {
                     return <StyledTableCell align="center">{"-"}</StyledTableCell>
