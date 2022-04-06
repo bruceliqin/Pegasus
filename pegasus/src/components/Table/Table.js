@@ -34,7 +34,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-const rows = [];
+//const rows = [];
 
 function createData(ID, Status, Address, Time) {
   return { ID, Status, Address, Time };
@@ -88,7 +88,7 @@ export default class CustomizedTables extends React.Component {
 
 
   componentDidMount() {
-    this.setState({scheduled : false})
+    const rows = [];
     const api = 'https://q9hhz3z4p7.execute-api.us-east-1.amazonaws.com/dev/getmails';
 
     axios
@@ -133,8 +133,8 @@ export default class CustomizedTables extends React.Component {
                 <StyledTableCell align="center" component="th" scope="row">
                   {row.ID}
                 </StyledTableCell>
-                <StyledTableCell align="center">{row.Status}</StyledTableCell>
                 <StyledTableCell align="center">{row.Address}</StyledTableCell>
+                <StyledTableCell align="center">{row.Status}</StyledTableCell>
                 <StyledTableCell align="center">{row.Time}</StyledTableCell>
                 {(() => {
                   if (row.Status === "Logged") {

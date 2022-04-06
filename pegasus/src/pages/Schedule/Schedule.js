@@ -2,8 +2,47 @@ import React, { Component } from 'react';
 import { Link, useParams, useLocation } from 'react-router-dom';
 import styles from './Schedule.module.css';
 import Header from '../../components/Header/Header';
+import Scheduler from '../../components/Scheduler/Scheduler';
 import axios from 'axios';
+import AlarmIcon from '@mui/icons-material/Alarm';
+import SnoozeIcon from '@mui/icons-material/Snooze';
+import TextField from '@mui/material/TextField';
+import ClockIcon from '@mui/icons-material/AccessTime';
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import DateTimePicker from '@mui/lab/DateTimePicker';
+import MobileDateTimePicker from '@mui/lab/MobileDateTimePicker';
+import Stack from '@mui/material/Stack';
 
+var t;
+
+function UseScheduler() {
+  const [value, setValue] = React.useState(new Date());
+
+  return (
+    <LocalizationProvider dateAdapter={AdapterDateFns}>
+      <Stack spacing={2}>
+        <MobileDateTimePicker
+          disablePast
+          value={value}
+          onChange={(newValue) => {
+            console.log(newValue)
+            setValue(newValue)
+            t = newValue
+          }}
+          label="Mail Scheduler"
+          onError={console.log}
+          inputFormat="yyyy/MM/dd hh a"
+          mask="___/__/__ __ _M"
+          renderInput={(params) => <TextField {...params} />}
+          minDateMessage="Cannot schedule in the past."
+          maxDate="2022-12-31"
+          views={["year", "month", "day", "hours"]}
+        />
+      </Stack>
+    </LocalizationProvider>
+  );
+}
 
 export default class Schedule extends Component {
 
@@ -30,7 +69,7 @@ export default class Schedule extends Component {
       async handleSubmit(event) {
         event.preventDefault();
         const api = 'https://q9hhz3z4p7.execute-api.us-east-1.amazonaws.com/dev/schedule'
-        const data = {'MailID': this.props.location.state.mailID, 'Time': this.state.time}
+        const data = {'MailID': this.props.location.state.mailID, 'Time': t}
     
         axios
           .post(api, data)
@@ -46,16 +85,16 @@ export default class Schedule extends Component {
         return (
             <div>
             <Header />
-            <form className="mt-5 py-5 px-5" onSubmit={this.handleSubmit}>
-              <div className={styles.logInBox}>
-                <input className={styles.formcontrol2} placeholder="Time" name="time" type="t" onChange={this.handleChange} value={this.state.time}></input>
+            <div className="mt-5 py-5 px-5">
+              <div className={styles.schdBox}>
+                <UseScheduler display={true}/>
               </div>
               <div className={styles.logInBox}>
-              <div className="form-group">
+              <form onSubmit={this.handleSubmit} className="form-group">
                 <button className={styles.signUpButton} type="submit">Schedule</button>
+              </form>
               </div>
-              </div>
-            </form>
+            </div>
             </div>
         )
       }
