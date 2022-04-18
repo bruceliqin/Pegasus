@@ -1,10 +1,49 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import styles from './UPS.module.css';
 import Header from '../../components/Header/Header';
 import axios from 'axios';
+import appSyncConfig from "../../aws-exports";
+import { createAuthLink } from "aws-appsync-auth-link";
+import { createSubscriptionHandshakeLink } from "aws-appsync-subscription-link";
+
+import { ApolloLink } from "@apollo/client";
+import { createHttpLink } from "@apollo/client";
+import { ApolloClient } from "@apollo/client";
+import { InMemoryCache } from "@apollo/client/cache";
+import { ApolloProvider } from "@apollo/client";
+import { gql, useMutation, useQuery, useSubscription } from "@apollo/client";
+
+const url = appSyncConfig.aws_appsync_graphqlEndpoint;
+const region = appSyncConfig.aws_appsync_region;
+const auth = {
+  type: appSyncConfig.aws_appsync_authenticationType,
+  apiKey: appSyncConfig.aws_appsync_apiKey,
+  // jwtToken: async () => token, // Required when you use Cognito UserPools OR OpenID Connect. token object is obtained previously
+  // credentials: async () => credentials, // Required when you use IAM-based auth.
+};
+
+const httpLink = createHttpLink({ uri: url });
+
+const link = ApolloLink.from([
+  createAuthLink({ url, region, auth }),
+  createSubscriptionHandshakeLink({ url, region, auth }, httpLink),
+]);
+
+const client = new ApolloClient({
+  link: link,
+  cache: new InMemoryCache(),
+});
 
 function UPS(props) {
+  const UPSPageJSX = [
+    <ApolloProvider client={client}>
+      <UPSComponent />
+    </ApolloProvider>,
+  ];
+  return UPSPageJSX;
+}
+
+function UPSComponent(props) {
   const [deliveryInfo, setDeliveryInfo] = useState({ mailID: null, address: null });
 
   function handleChange(event) {
