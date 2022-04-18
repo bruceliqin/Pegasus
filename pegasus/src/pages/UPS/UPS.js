@@ -43,8 +43,25 @@ function UPS(props) {
   return UPSPageJSX;
 }
 
+
 function UPSComponent(props) {
+  const sendMessageMutation = gql`
+      mutation MyMutation($conversationId: ID!, $id: ID!, $content: String!, $createdAt: String!) {
+        createMessage(conversationId: $conversationId, id: $id, content: $content, createdAt: $createdAt) {
+          content
+          conversationId
+          createdAt
+          id
+          isSent
+          sender
+        }
+      }
+      `
   const [deliveryInfo, setDeliveryInfo] = useState({ mailID: null, address: null });
+  const [sendMessageFunction, { data, loading, error }] = useMutation(sendMessageMutation);
+  if (!loading && error) {
+    console.warn(error);
+  }
 
   function handleChange(event) {
     let newDeliveryInfo = { ...deliveryInfo };
@@ -63,8 +80,16 @@ function UPSComponent(props) {
         console.log(response);
       })
       .catch((error) => {
-        console.log(error);
+        console.warn(error);
       });
+    sendMessageFunction({
+      variables: {
+        conversationId: deliveryInfo.mailID,
+        id: "Demo-Delivery",
+        content: deliveryInfo.address,
+        createdAt: Date.now(),
+      }
+    });
   }
 
   return (
