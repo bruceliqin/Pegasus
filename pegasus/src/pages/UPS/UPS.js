@@ -57,8 +57,9 @@ function UPSComponent(props) {
         }
       }
       `
-  const [deliveryInfo, setDeliveryInfo] = useState({ mailID: null, address: null });
+  const [deliveryInfo, setDeliveryInfo] = useState({ mailID: null, address: { traffic: false, tree: false, concrete: false, brick: false } });
   const [sendMessageFunction, { data, loading, error }] = useMutation(sendMessageMutation);
+  let newDeliveryInfo = { ...deliveryInfo };
   if (!loading && error) {
     console.warn(error);
   }
@@ -71,8 +72,13 @@ function UPSComponent(props) {
 
   async function handleSubmit(event) {
     event.preventDefault();
+    let address = "";
+    for (let [k, v] of Object.entries(deliveryInfo.address)) {
+      if (v) address += k + ",";
+    }
+    if (address.length !== 0) address = address.slice(0, -1);
     const api = 'https://q9hhz3z4p7.execute-api.us-east-1.amazonaws.com/dev/submitmail'
-    const data = { 'MailID': deliveryInfo.mailID, 'Address': deliveryInfo.address }
+    const data = { 'MailID': deliveryInfo.mailID, 'Address': address }
 
     axios
       .post(api, data)
@@ -86,7 +92,7 @@ function UPSComponent(props) {
       variables: {
         conversationId: deliveryInfo.mailID,
         id: "Demo-Delivery",
-        content: deliveryInfo.address,
+        content: address,
         createdAt: Date.now(),
       }
     });
@@ -98,14 +104,63 @@ function UPSComponent(props) {
 
       <form className="mt-5 py-5 px-5" onSubmit={(e) => { handleSubmit(e) }}>
         <div className={styles.logInBox}>
-          <p className={styles.text}>Fill in the form below to submit a mail.</p>
+          <p className={styles.text}>Fill in the form below to submit a mail. Each stop takes 1-2 minutes! </p>
         </div>
         <div className={styles.logInBox}>
-          <input className={styles.formcontrol2} placeholder="Mail ID" name="mailID" type="mailID" onChange={(e) => { handleChange(e) }} value={deliveryInfo.mailID}></input>
+          <input className={styles.formcontrol2} placeholder="Your Name" name="mailID" type="mailID" onChange={(e) => { handleChange(e) }} value={deliveryInfo.mailID}></input>
         </div>
-        <div className={styles.logInBox}>
-          <input className={styles.formcontrol2} placeholder="Address" name="address" type="address" onChange={(e) => { handleChange(e) }} value={deliveryInfo.address}></input>
-        </div>
+        <li key={0}>
+          <div className={styles.logInBox}>
+            <input
+              type="checkbox"
+              key={"test key"}
+              name={"address"}
+              onChange={(e) => {
+                newDeliveryInfo.address.traffic = !newDeliveryInfo.address.traffic;
+                setDeliveryInfo(newDeliveryInfo);
+              }}
+              value={"test"} /> Between the Traffic
+          </div>
+        </li>
+        <li key={1}>
+          <div className={styles.logInBox}>
+            <input
+              type="checkbox"
+              key={"test key"}
+              name={"address"}
+              onChange={(e) => {
+                newDeliveryInfo.address.tree = !newDeliveryInfo.address.tree;
+                setDeliveryInfo(newDeliveryInfo);
+              }}
+              value={"test"} /> Into the Tree
+          </div>
+        </li>
+        <li key={2}>
+          <div className={styles.logInBox}>
+            <input
+              type="checkbox"
+              key={"test key"}
+              name={"address"}
+              onChange={(e) => {
+                newDeliveryInfo.address.concrete = !newDeliveryInfo.address.concrete;
+                setDeliveryInfo(newDeliveryInfo);
+              }}
+              value={"test"} /> Concrete Plaza
+          </div>
+        </li>
+        <li key={3}>
+          <div className={styles.logInBox}>
+            <input
+              type="checkbox"
+              key={"test key"}
+              name={"address"}
+              onChange={(e) => {
+                newDeliveryInfo.address.brick = !newDeliveryInfo.address.brick;
+                setDeliveryInfo(newDeliveryInfo);
+              }}
+              value={"test"} /> Brick Plaza
+          </div>
+        </li>
         <div className={styles.logInBox}>
           <div className="form-group">
             <button className={styles.signUpButton} type="submit">Submit</button>
