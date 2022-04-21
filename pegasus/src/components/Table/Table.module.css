@@ -13,4 +13,26 @@ body {
   color: #afaba2;
   display: inline;
 }
+
+.refreshButton:hover {
+  background-color: #806f5d;
+  width: 90vh;
+  margin-top:5px;
+  margin-bottom:5px;
+  border-radius: 5px;
+  padding:10px;
+  height: 7vh;
+}
+.refreshButton {
+  background-color: #afaba2;
+  color:#272727;
+  border-radius:5px;
+  border-color: #afaba2;
+  width: 90vh;
+  margin-top:5px;
+  margin-bottom:5px;
+  border-radius: 5px;
+  padding:10px;
+  height: 7vh;
+}
  

@@ -1,0 +1,83 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins&display=swap');
+
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: #fbffff;
+}
+
+.logInBox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.text {
+  color: #2f2a26;
+}
+
+.text1 {
+  color: #2f2a26;
+  display: inline;
+}
+.text2 {
+  color: #afaba2;
+  display: inline;
+}
+
+.text3 {
+  color: #afaba2;
+  display: inline;
+}
+.text3:hover {
+  color: #806f5d;
+  display: inline;
+}
+
+/* mouse over link */
+a:hover {
+  text-decoration:none;
+}
+a:link {
+  text-decoration:none;
+}
+a:visited {
+  text-decoration:none;
+}
+a:active {
+  text-decoration:none;
+}
+
+.formcontrol {
+  width: 100%;
+}
+
+.formcontrol2 {
+  width: 50vh;
+  margin-top:5px;
+  margin-bottom:5px;
+  border-radius: 5px;
+  padding:10px;
+}
+
+.signUpButton:hover {
+  background-color: #806f5d;
+  width: 50vh;
+  margin-top:5px;
+  margin-bottom:5px;
+  border-radius: 5px;
+  padding:10px;
+  height: 7vh;
+}
+.signUpButton {
+  background-color: #afaba2;
+  color:#272727;
+  border-radius:5px;
+  border-color: #afaba2;
+  width: 50vh;
+  margin-top:5px;
+  margin-bottom:5px;
+  border-radius: 5px;
+  padding:10px;
+  height: 7vh;
+}

@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './Home.module.css';
+import HeaderHome from '../../components/Header_Home/Header_Home';
 export default class HomePage extends Component {
   render() {
     return (
       <div className="body">
+        <HeaderHome />
       <div className={styles.mainSection}>
         <div className = {styles.center}>
             <div className="container text-center py-5">

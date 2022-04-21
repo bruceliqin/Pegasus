@@ -151,7 +151,9 @@ export default class CustomizedTables extends React.Component {
           
         </Table>
       </TableContainer>
-      <form className={styles.refresh} onSubmit={this.handleSubmit} align ="center"><button type="submit">Refresh</button></form>
+      <form className={styles.refresh} onSubmit={this.handleSubmit} align ="center">
+        <button className={styles.refreshButton} type="submit">Refresh</button>
+      </form>
     </div>
     );
    } 

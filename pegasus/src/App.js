@@ -6,6 +6,7 @@ import Signup from "./pages/Signup/Signup";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import Schedule from "./pages/Schedule/Schedule";
 import UPS from "./pages/UPS/UPS";
+import Demo from "./pages/Demo/Demo";
 //import './styles.css';
 
 
@@ -21,6 +22,7 @@ class App extends React.Component {
                 <Route exact path="/dashboard" component={Dashboard} />
                 <Route exact path="/UPS" component={UPS} />
                 <Route exact path="/schedule" component={Schedule} />
+                <Route exact path="/demo" component={Demo} />
             </Switch>
         </Router>
       </main>
